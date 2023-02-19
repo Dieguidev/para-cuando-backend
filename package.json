@@ -24,6 +24,8 @@
     "pg": "^8.9.0",
     "sequelize": "^6.23.2",
     "sequelize-cli": "^6.5.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^4.6.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
