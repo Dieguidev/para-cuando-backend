@@ -1,10 +1,9 @@
 'use strict';
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     const transaction = await queryInterface.sequelize.transaction()
     try {
-      await queryInterface.createTable('publications_images', {
+      await queryInterface.createTable('votes', {
         publication_id: {
           type: Sequelize.UUID,
           allowNull: false,
@@ -16,13 +15,16 @@ module.exports = {
           onUpdate: 'CASCADE',
           onDelete: 'RESTRICT'
         },
-        image_url: {
+        user_id: {
+          type: Sequelize.UUID,
           allowNull: false,
-          type: Sequelize.STRING
-        },
-        order: {
-          allowNull: false,
-          type: Sequelize.STRING
+          foreignKey: true,
+          references: {
+            model: 'users',
+            key: 'id'
+          },
+          onUpdate: 'CASCADE',
+          onDelete: 'RESTRICT'
         },
         created_at: {
           allowNull: false,
@@ -42,7 +44,7 @@ module.exports = {
   down: async (queryInterface, Sequelize) => {
     const transaction = await queryInterface.sequelize.transaction()
     try {
-      await queryInterface.dropTable('publications_images');
+      await queryInterface.dropTable('votes', { transaction });
       await transaction.commit()
     } catch (error) {
       await transaction.rollback()
