@@ -5,8 +5,8 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class PublicationsTags extends Model {
     static associate(models) {
-      PublicationsTags.belongsTo(models.Tags,{as:'tag', foreignKey:'tag_id'})
-      PublicationsTags.belongsTo(models.Publications,{as:'publication', foreignKey:'publication_id'})
+      PublicationsTags.belongsTo(models.Tags, { as: 'tag', foreignKey: 'tag_id' })
+      PublicationsTags.belongsTo(models.Publications, { as: 'publication', foreignKey: 'publication_id' })
     }
   }
   PublicationsTags.init({

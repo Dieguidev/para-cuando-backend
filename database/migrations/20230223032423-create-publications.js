@@ -9,7 +9,7 @@ module.exports = {
           allowNull: false,
           defaultValue: Sequelize.UUIDV4,
           primaryKey: true,
-          type: Sequelize.INTEGER
+          type: Sequelize.UUID
         },
         user_id: {
           allowNull: false,
