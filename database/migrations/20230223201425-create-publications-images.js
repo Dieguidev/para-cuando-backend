@@ -22,7 +22,8 @@ module.exports = {
         },
         order: {
           allowNull: false,
-          type: Sequelize.STRING
+          type: Sequelize.INTEGER,
+          autoIncrement: true
         },
         created_at: {
           allowNull: false,

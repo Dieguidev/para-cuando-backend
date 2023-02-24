@@ -1,5 +1,4 @@
 'use strict'
-const { Op } = require('sequelize')
 const rolesServices = require('../../services/roles.service')
 const usersServices = require('../../services/users.service')
 
