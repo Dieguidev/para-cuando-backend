@@ -6,7 +6,7 @@ module.exports = {
     try {
       await queryInterface.createTable('publications_images', {
         publication_id: {
-          type: Sequelize.INTEGER,
+          type: Sequelize.UUID,
           allowNull: false,
           foreignKey: true,
           references: {
