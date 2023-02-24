@@ -6,8 +6,13 @@ class CountriesService {
 
   constructor() {
   }
+  
+  static async getAllCountry() {
+    const result = await models.Countries.findAll()
+    return result
+  }
 
-  async findAndCount(query) {
+  static async findAndCount(query) {
     const options = {
       where: {},
     }
@@ -49,6 +54,7 @@ class CountriesService {
       throw error
     }
   }
+
   //Return Instance if we do not converted to json (or raw:true)
   async getCountryOr404(id) {
     let country = await models.Countries.findByPk(id, { raw: true })

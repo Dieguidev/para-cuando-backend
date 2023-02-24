@@ -9,10 +9,7 @@ class UsersService {
   constructor() {
   }
 
-  async getAllUsers() {
-    const result = await models.Users.findAll()
-    return result
-  }
+
 
   async findAndCount(query) {
     const options = {
