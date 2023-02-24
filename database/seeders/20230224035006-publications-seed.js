@@ -48,7 +48,7 @@ module.exports = {
           updated_at: new Date(),
         },
       ]
-      await queryInterface.bulkInsert('users', publicationsSeed, { transaction })
+      await queryInterface.bulkInsert('publications', publicationsSeed, { transaction })
 
       await transaction.commit()
     } catch (error) {
@@ -67,7 +67,7 @@ module.exports = {
 
     try {
       await queryInterface.bulkDelete(
-        'users',
+        'publications',
         {
           user_id: {
             [Op.or]: userIds,

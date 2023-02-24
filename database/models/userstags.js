@@ -5,16 +5,20 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class UsersTags extends Model {
     static associate(models) {
-      UsersTags.belongsTo(models.Users,{as:'user', foreignKey:'user_id'})
-      UsersTags.belongsTo(models.Tags,{as:'tag', foreignKey:'tag_id'})
+      UsersTags.belongsTo(models.Users, { as: 'user', foreignKey: 'user_id' })
+      UsersTags.belongsTo(models.Tags, { as: 'tag', foreignKey: 'tag_id' })
     }
   }
   UsersTags.init({
     tag_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      primaryKey: true
     },
-    user_id: DataTypes.UUID
+    user_id: {
+      type: DataTypes.UUIDV4,
+      primaryKey: true
+    }
   }, {
     sequelize,
     modelName: 'UsersTags',

@@ -8,6 +8,7 @@ module.exports = {
         publication_id: {
           type: Sequelize.UUID,
           allowNull: false,
+          primaryKey: true,
           foreignKey: true,
           references: {
             model: 'publications',
@@ -23,6 +24,7 @@ module.exports = {
         order: {
           allowNull: false,
           type: Sequelize.INTEGER,
+          primaryKey: true,
           autoIncrement: true
         },
         created_at: {

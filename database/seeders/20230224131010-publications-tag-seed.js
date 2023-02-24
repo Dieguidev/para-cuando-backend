@@ -8,8 +8,8 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction()
     try {
-      const publicationId = await PublicationsService.getPublicationsOr404('Dina Paucar concert')
-      const publicationId2 = await PublicationsService.getPublicationsOr404('national chess tournament')
+      const publicationId = await PublicationsService.findPublicationByTitleOr404('Dina Paucar concert')
+      const publicationId2 = await PublicationsService.findPublicationByTitleOr404('national chess tournament')
       const publications_tags = [
         {
           tag_id: 1,
@@ -37,8 +37,8 @@ module.exports = {
     const transaction = await queryInterface.sequelize.transaction()
 
     try {
-      const publicationId = await PublicationsService.getPublicationsOr404('Dina Paucar concert')
-      const publicationId2 = await PublicationsService.getPublicationsOr404('national chess tournament')
+      const publicationId = await PublicationsService.findPublicationByTitleOr404('Dina Paucar concert')
+      const publicationId2 = await PublicationsService.findPublicationByTitleOr404('national chess tournament')
 
       await queryInterface.bulkDelete('publications_tags', {
         tag_id: [1, 2],

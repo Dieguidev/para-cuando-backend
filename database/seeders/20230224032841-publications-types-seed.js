@@ -6,7 +6,7 @@ module.exports = {
     const transaction = await queryInterface.sequelize.transaction()
     try {
 
-      const publications_type = [
+      const publications_types = [
         {
           id: 1,
           name: 'brands and stores',
@@ -30,7 +30,7 @@ module.exports = {
         },
       ]
 
-      await queryInterface.bulkInsert('publications_type', publications_type, { transaction })
+      await queryInterface.bulkInsert('publications_types', publications_types, { transaction })
       await transaction.commit()
     } catch (error) {
       await transaction.rollback()
@@ -41,7 +41,7 @@ module.exports = {
   async down(queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction()
     try {
-      await queryInterface.bulkDelete('publications_type', {
+      await queryInterface.bulkDelete('publications_types', {
         id: [1, 2, 3],
         name: ['Question Publication', 'Answer Publication', 'Comment'],
         description: [

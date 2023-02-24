@@ -9,9 +9,15 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   PublicationsImages.init({
-    publication_id: DataTypes.UUID,
+    publication_id: {
+      type: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
     image_url: DataTypes.STRING,
-    order: DataTypes.INTEGER
+    order: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+    }
   }, {
     sequelize,
     modelName: 'PublicationsImages',

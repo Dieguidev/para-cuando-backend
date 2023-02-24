@@ -10,8 +10,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   PublicationsTags.init({
-    tag_id: DataTypes.INTEGER,
-    publication_id: DataTypes.UUID
+    tag_id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true
+    },
+    publication_id: {
+      type: DataTypes.UUIDV4,
+      primaryKey: true
+    }
   }, {
     sequelize,
     modelName: 'PublicationsTags',
