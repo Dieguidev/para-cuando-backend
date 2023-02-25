@@ -63,6 +63,27 @@ module.exports = (sequelize, DataTypes) => {
    *       type: http
    *       scheme: bearer
    *       bearerFormat: JWT
+   *     sign-up:
+   *       type: object
+   *       properties:
+   *         email:
+   *           type: string
+   *           example: ian.rosas@academlo.com
+   *         password:
+   *           type: string
+   *           example: 1234
+   *     sing-upResponse:
+   *       type: object
+   *       properties:
+   *         username:
+   *           type: string,
+   *           example: luciano
+   *         id:
+   *           type: int
+   *           example: 2
+   *         email:
+   *           type: string
+   *           example: robert_lca91@hotmail.com
    */
   Users.init(
     {
