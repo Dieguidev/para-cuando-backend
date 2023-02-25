@@ -8,9 +8,7 @@ class UsersService {
 
   constructor() {
   }
-
-
-
+  
   async findAndCount(query) {
     const options = {
       where: {},

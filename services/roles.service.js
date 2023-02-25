@@ -7,7 +7,7 @@ class RolesService {
   constructor() {
   }
 
-  async findAndCount(query) {
+  static async findAndCountRoles(query) {
     const options = {
       where: {},
     }
@@ -28,7 +28,6 @@ class RolesService {
       options.where.name = { [Op.iLike]: `%${name}%` }
     }
 
-    //Necesario para el findAndCountAll de Sequelize
     options.distinct = true
 
     const roles = await models.Roles.findAndCountAll(options)
