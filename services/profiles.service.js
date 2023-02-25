@@ -26,6 +26,19 @@ class ProfilesService {
     if (!profile) throw new CustomError('Not found profile', 404, 'Not Found')
     return profile
   }
+  async isAdmin(user_id) {
+    let role = await models.Roles.findOne(
+      { where: { name: 'admin' } },
+      { raw: true }
+    )
+    let profile = await models.Profiles.findOne(
+      { where: { user_id, role_id: role.id } },
+      { raw: true }
+    )
+
+    if (!profile) throw new CustomError('Not administ', 403, 'Not allowed')
+    return profile
+  }
 
 
 }
