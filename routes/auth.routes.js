@@ -55,7 +55,7 @@ const {
  *                   example: validation error
  * /api/v1/auth/sign-up:
  *   post:
- *     summary: Registered User
+ *     summary: Sign-up User
  *     tags: [Auth]
  *     requestBody:
  *       description: Required fields to logged user

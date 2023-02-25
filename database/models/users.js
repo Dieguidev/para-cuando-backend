@@ -22,12 +22,24 @@ module.exports = (sequelize, DataTypes) => {
    * @openapi
    * components:
    *   schemas:
+   *     register:
+   *       type: object
+   *       properties:
+   *         username:
+   *           type: string
+   *           example: luciano
+   *         email:
+   *           type: string
+   *           example: robert_lca91@homail.com
+   *         password:
+   *           type: string
+   *           example: 1234
    *     login:
    *       type: object
    *       properties:
    *         email:
    *           type: string
-   *           example: robert_lca91@homail.com
+   *           example: ian.rosas@academlo.com
    *         password:
    *           type: string
    *           example: 1234
