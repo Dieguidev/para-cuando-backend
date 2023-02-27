@@ -5,6 +5,7 @@ class CitiesServices {
   static async findAndCountCities(query) {
     const options = {
       where: {},
+      attributes: { exclude: ['created_at', 'updated_at','state_id','id'] }
     }
 
     const { limit, offset } = query

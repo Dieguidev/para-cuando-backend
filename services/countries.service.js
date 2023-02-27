@@ -1,12 +1,12 @@
 const models = require('../database/models')
 const { Op } = require('sequelize')
-const  { CustomError }  = require('../utils/helpers')
+const { CustomError } = require('../utils/helpers')
 
 class CountriesService {
 
   constructor() {
   }
-  
+
   static async getAllCountry() {
     const result = await models.Countries.findAll()
     return result
@@ -15,6 +15,7 @@ class CountriesService {
   static async findAndCount(query) {
     const options = {
       where: {},
+      attributes: { exclude: ['created_at', 'updated_at', 'id'] }
     }
 
     const { limit, offset } = query
@@ -40,7 +41,7 @@ class CountriesService {
     return countries
   }
 
-  async createCountry({name}) {
+  async createCountry({ name }) {
     const transaction = await models.sequelize.transaction()
     try {
       let newCountry = await models.Countries.create({
