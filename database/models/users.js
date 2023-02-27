@@ -8,8 +8,14 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'country_id',
       })
       Users.hasMany(models.Profiles, { as: 'profiles', foreignKey: 'user_id' })
-      Users.hasMany(models.Publications, { as: 'publications', foreignKey: 'user_id' })
-      Users.hasMany(models.UsersTags, { as: 'users_tags', foreignKey: 'user_id' })
+      Users.hasMany(models.Publications, {
+        as: 'publications',
+        foreignKey: 'user_id',
+      })
+      Users.hasMany(models.UsersTags, {
+        as: 'users_tags',
+        foreignKey: 'user_id',
+      })
       Users.hasMany(models.Votes, { as: 'votes', foreignKey: 'user_id' })
     }
   }
@@ -17,69 +23,20 @@ module.exports = (sequelize, DataTypes) => {
    * @openapi
    * components:
    *   schemas:
-   *     register:
+   *     users:
    *       type: object
    *       properties:
    *         username:
    *           type: string
-   *           example: luciano
+   *           example: Diego
    *         email:
    *           type: string
-   *           example: robert_lca91@homail.com
+   *           example: diegogaray@gmail.com
    *         password:
    *           type: string
    *           example: 1234
-   *     login:
-   *       type: object
-   *       properties:
-   *         email:
-   *           type: string
-   *           example: ian.rosas@academlo.com
-   *         password:
-   *           type: string
-   *           example: 1234
-   *     loginResponse:
-   *       type: object
-   *       properties:
-   *         username:
-   *           type: string,
-   *           example: luciano
-   *         id:
-   *           type: int
-   *           example: 2
-   *         email:
-   *           type: string
-   *           example: robert_lca91@hotmail.com
-   *         token:
-   *           type: string
-   *           example: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJmaXJzdG5hbWUiOiJ0cmF2ZXN0aWRpZWdvIiwibGFzdG5hbWUiOiJsb2NhcGF1bCIsImlkIjozLCJlbWFpbCI6ImRpZWd1aXRvQGdtYWlsLmNvbSIsImlhdCI6MTY3NDg2MjE0OCwiZXhwIjoxNjc0ODYyNzQ4fQ.AMsqYOxB5ExrJSBD-6bob9vj0kLBZD4xZutxTfgC2ZszTCN8v9pc7yC04KytGAyOV9NcDJy2DerZ7CSiMImM5A
-   *   securitySchemes:
-   *     bearerAuth:
-   *       type: http
-   *       scheme: bearer
-   *       bearerFormat: JWT
-   *     sign-up:
-   *       type: object
-   *       properties:
-   *         email:
-   *           type: string
-   *           example: ian.rosas@academlo.com
-   *         password:
-   *           type: string
-   *           example: 1234
-   *     sing-upResponse:
-   *       type: object
-   *       properties:
-   *         username:
-   *           type: string,
-   *           example: luciano
-   *         id:
-   *           type: int
-   *           example: 2
-   *         email:
-   *           type: string
-   *           example: robert_lca91@hotmail.com
    */
+
   Users.init(
     {
       id: {
