@@ -23,6 +23,7 @@ const getAllPublications = async (req, res, next) => {
 const createPublication = async (req, res, next) => {
   try {
     let { body } = req;
+    // console.log(body);
     let errors = [];
     let newPublication = await PublicationsService.createPublication(body);
     return res
@@ -46,4 +47,17 @@ const getPublicationsById = async (req, res, next) => {
   }
 }
 
-module.exports = { getAllPublications, createPublication, getPublicationsById };
+const deletePublicationById = async (req, res, next) => {
+  try {
+    let { id } = req.params
+    let publications = await PublicationsService.getPublicationsById(id)
+    if (publications) {
+      const result = await PublicationsService.deletePublicationById(id)
+      return res.json({ results: ' publication removed' })
+    }
+  } catch (error) {
+    next(error)
+  }
+}
+
+module.exports = { getAllPublications, createPublication, getPublicationsById, deletePublicationById };
