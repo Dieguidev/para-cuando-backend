@@ -1,3 +1,5 @@
+const { Op, where, cast, literal } = require('sequelize');
+const { v4: uuid4 } = require('uuid');
 const models = require('../database/models')
 const { CustomError } = require('../utils/helpers');
 
@@ -8,6 +10,76 @@ class PublicationsService {
     if (!publication) throw new CustomError('Not found User', 404, 'Not Found')
     return publication
   }
+
+  static async getAllPublications(query) {
+    const options = {
+      where: {},
+      attributes: {
+        include: [
+          [cast(literal('(SELECT COUNT(*) FROM "votes" WHERE "votes"."publication_id" = "Publications"."id")'), 'integer'), 'votes_count']
+        ]
+      }
+    }
+
+    const { limit, offset } = query
+    if (limit && offset) {
+      options.limit = limit
+      options.offset = offset
+    }
+
+    const { title } = query
+    if (title) {
+      options.where.title = { [Op.iLike]: `%${title}%` }
+    }
+
+    const { description } = query
+    if (description) {
+      options.where.description = { [Op.iLike]: `%${description}%` }
+    }
+
+    options.distinct = true
+
+    const publications = await models.Publications.findAndCountAll(options)
+    return publications
+  }
+
+  static async createPublication(body) {
+
+    body.id = uuid4();
+    // body.city_id = 'DEFAULT_CITY';
+
+    const newPublication = await models.Publications.create(body);
+    // console.log(body.tags);
+    // if (body.tags) {
+    //   let arrayTags = body.tags.split(',')
+    //   let findedTags = await models.Tags.findAll({
+    //     where: { id: arrayTags },
+    //     attributes: ['id'],
+    //     raw: true,
+    //   })
+
+    //   if (findedTags.length > 0) {
+    //     let tags_ids = findedTags.map(tag => tag['id'])
+    //     await newPublication.setTags(tags_ids)
+    //   }
+    // }
+
+    return newPublication;
+
+  }
+
+  static async getPublicationsById(id) {
+    let publication = await models.Publications.findOne({ where: { id } }, { raw: true })
+    if (!publication) throw new CustomError('Not found publication', 404, 'Not Found')
+    return publication
+  }
+
+  static async deletePublicationById(id) {
+    const result = await models.Publications.destroy({ where: { id } })
+    return result
+  }
 }
+
+
 
 module.exports = PublicationsService;

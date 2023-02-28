@@ -40,6 +40,37 @@ const findTagByid = async (req, res, next) => {
   } catch (error) {
     next(error)
   }
+
+
 }
 
-module.exports = { getAllTags, createTag, findTagByid }
+const editingTag = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const tag = await TagsService.findTagByid(id);
+
+    if (tag) {
+      const { name, description, image_url } = req.body
+      const fieldsModified = { name, description, image_url }
+      const result = await TagsService.editingTag(id, fieldsModified)
+      res.json({message: 'Succes Update'})
+    }
+  } catch (error) {
+    next(error)
+  }
+}
+
+const deleteTags = async (req,res,next)=>{
+  try {
+    const { id } = req.params;
+    const tag = await TagsService.findTagByid(id);
+    if (tag) {
+      const result = await TagsService.deleteTag(id)
+      res.json({message: 'Tag Removed'})
+    }
+  } catch (error) {
+    next(error)
+  }
+}
+
+module.exports = { getAllTags, createTag, findTagByid, editingTag, deleteTags }

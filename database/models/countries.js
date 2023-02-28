@@ -34,3 +34,25 @@ module.exports = (sequelize, DataTypes) => {
   })
   return Countries
 }
+
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     countries:
+ *       type: object
+ *       properties:
+ *         results:
+ *           type: object
+ *           example:
+ *             "count": 1
+ *             "totalPages": 1
+ *             "currentPage": 1
+ *             "results":
+ *               "name": Peru
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ */

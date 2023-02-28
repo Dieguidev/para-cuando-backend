@@ -13,73 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       Users.hasMany(models.Votes, { as: 'votes', foreignKey: 'user_id' })
     }
   }
-  /**
-   * @openapi
-   * components:
-   *   schemas:
-   *     register:
-   *       type: object
-   *       properties:
-   *         username:
-   *           type: string
-   *           example: luciano
-   *         email:
-   *           type: string
-   *           example: robert_lca91@homail.com
-   *         password:
-   *           type: string
-   *           example: 1234
-   *     login:
-   *       type: object
-   *       properties:
-   *         email:
-   *           type: string
-   *           example: ian.rosas@academlo.com
-   *         password:
-   *           type: string
-   *           example: 1234
-   *     loginResponse:
-   *       type: object
-   *       properties:
-   *         username:
-   *           type: string,
-   *           example: luciano
-   *         id:
-   *           type: int
-   *           example: 2
-   *         email:
-   *           type: string
-   *           example: robert_lca91@hotmail.com
-   *         token:
-   *           type: string
-   *           example: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJmaXJzdG5hbWUiOiJ0cmF2ZXN0aWRpZWdvIiwibGFzdG5hbWUiOiJsb2NhcGF1bCIsImlkIjozLCJlbWFpbCI6ImRpZWd1aXRvQGdtYWlsLmNvbSIsImlhdCI6MTY3NDg2MjE0OCwiZXhwIjoxNjc0ODYyNzQ4fQ.AMsqYOxB5ExrJSBD-6bob9vj0kLBZD4xZutxTfgC2ZszTCN8v9pc7yC04KytGAyOV9NcDJy2DerZ7CSiMImM5A
-   *   securitySchemes:
-   *     bearerAuth:
-   *       type: http
-   *       scheme: bearer
-   *       bearerFormat: JWT
-   *     sign-up:
-   *       type: object
-   *       properties:
-   *         email:
-   *           type: string
-   *           example: ian.rosas@academlo.com
-   *         password:
-   *           type: string
-   *           example: 1234
-   *     sing-upResponse:
-   *       type: object
-   *       properties:
-   *         username:
-   *           type: string,
-   *           example: luciano
-   *         id:
-   *           type: int
-   *           example: 2
-   *         email:
-   *           type: string
-   *           example: robert_lca91@hotmail.com
-   */
+
   Users.init(
     {
       id: {
@@ -188,3 +122,59 @@ module.exports = (sequelize, DataTypes) => {
   )
   return Users
 }
+
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     sign-up:
+ *       type: object
+ *       properties:
+ *         first_name:
+ *           type: string
+ *           example: Diego
+ *         last_name:
+ *           type: string
+ *           example: Garay
+ *         email:
+ *           type: string
+ *           example: diego@gmail.com
+ *         password:
+ *           type: string
+ *           example: 1234
+ *     login:
+ *       type: object
+ *       properties:
+ *         email:
+ *           type: string
+ *           example: diegogaray@gmail.com
+ *         password:
+ *           type: string
+ *           example: 1234
+ *     loginResponse:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *           example: Correct Credentials
+ *         token:
+ *           type: string
+ *           example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+ *     forgetPassword:
+ *       type: object
+ *       properties:
+ *         email:
+ *           type: string
+ *           example: diego@gmail.com
+ *     changePassword:
+ *       type: object
+ *       properties:
+ *         password:
+ *           type: string
+ *           example: 1234
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ */

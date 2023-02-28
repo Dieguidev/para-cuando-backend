@@ -20,6 +20,38 @@ const {
 
 /**
  * @openapi
+ * /api/v1/auth/sign-up:
+ *   post:
+ *     summary: Sign-up User
+ *     tags: [Auth]
+ *     requestBody:
+ *       description: Required fields to logged user
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/sign-up'
+ *     responses:
+ *       201:
+ *         description: Sing-up
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Success Sign Up
+ *       401:
+ *         description: not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: validation error
  * /api/v1/auth/login:
  *   post:
  *     summary: login user into application
@@ -33,16 +65,12 @@ const {
  *           schema:
  *             $ref: '#/components/schemas/login'
  *     responses:
- *       201:
- *         description: Created
+ *       200:
+ *         description: LogIn user
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: user log in
+ *               $ref: '#/components/schemas/loginResponse'
  *       400:
  *         description: Validation error
  *         content:
@@ -52,153 +80,127 @@ const {
  *               properties:
  *                 message:
  *                   type: string
- *                   example: validation error
- * /api/v1/auth/sign-up:
- *   post:
- *     summary: Sign-up User
- *     tags: [Auth]
- *     requestBody:
- *       description: Required fields to logged user
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/sign-up'
- *     responses:
- *       200:
- *         description: Sing-up
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/sign-upResponse'
- *       401:
- *         description: not found
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: unauthorized
- * /api/v1/auth/forget-password:
- *   post:
- *     summary: Registered User
- *     tags: [Auth]
- *     requestBody:
- *       description: Required fields to logged user
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/forget-password'
- *     responses:
- *       200:
- *         description: Sing-up
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/forget-passwordResponse'
- *       401:
- *         description: not found
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: unauthorized
- * /api/v1/auth/change-password/:token:
- *   post:
- *     summary: Registered User
- *     tags: [Auth]
- *     requestBody:
- *       description: Required fields to logged user
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/change-password/:token'
- *     responses:
- *       200:
- *         description: change-password/:token
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/change-password/:tokenResponse'
- *       401:
- *         description: not found
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: unauthorized
+ *                   example: Not found User
  * /api/v1/auth/me:
  *   get:
- *     summary: me
- *     tags: [Auth]
- *     requestBody:
- *       description: Required fields to logged user
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/me'
+ *     security:
+ *       - bearerAuth: [ ]
+ *     summary: My info
+ *     tags:
+ *       - Auth
  *     responses:
  *       200:
- *         description: change-password/:token
- *         content:
+ *         description: My info
+ *         content: 
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/meResponse'
- *       401:
- *         description: not found
- *         content:
+ *               type: object
+ *               properties:
+ *                 results: 
+ *                   id:
+ *                     type: string
+ *                     format: uuid
+ *                     example: 5d4af23b-97d2-489e
+ *                   first_name:
+ *                     type: string
+ *                     example: Diego
+ *       400:
+ *         description: Validation error
+ *         content: 
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
  *                 message:
  *                   type: string
- *                   example: unauthorized
- * /api/v1/auth/testing:
- *   get:
- *     summary: me
- *     tags: [Auth]
+ *                   example: validation error
+ * /api/v1/auth/forget-password:
+ *   post:
+ *     summary: My info
+ *     tags:
+ *       - Auth
  *     requestBody:
- *       description: Required fields to logged user
+ *       description: Required fields to new password
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/testing'
+ *             $ref: '#/components/schemas/forgetPassword'
  *     responses:
  *       200:
- *         description: change-password/:token
- *         content:
+ *         description: My info
+ *         content: 
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/testingResponse'
- *       401:
- *         description: not found
- *         content:
+ *               type: object
+ *               properties:
+ *                 results: 
+ *                   id:
+ *                     type: string
+ *                     format: uuid
+ *                     example: 5d4af23b-97d2-489e
+ *                   first_name:
+ *                     type: string
+ *                     example: Diego
+ *       400:
+ *         description: Validation error
+ *         content: 
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
  *                 message:
  *                   type: string
- *                   example: unauthorized
-
+ *                   example: validation error
+ * /api/v1/auth/change-password/{token}:
+ *   post:
+ *     summary: My info
+ *     tags:
+ *       - Auth
+ *     parameters:
+ *       - in: path
+ *         name: token
+ *         required: true
+ *         schema:
+ *           type: string
+ *           minimun: 1
+ *         description: token
+ *     requestBody:
+ *       description: Required fields to new password
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/changePassword'
+ *     responses:
+ *       200:
+ *         description: My info
+ *         content: 
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 results: 
+ *                   first_name:
+ *                     type: string
+ *                     example: Diego
+ *       400:
+ *         description: Validation error
+ *         content: 
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: validation error
  */
 
 router.post('/login', logIn)
 
 router.post('/sign-up', verifySchema(signupSchema, 'body'), signUp)
+
+router.get('/me', passport.authenticate('jwt', { session: false }), userToken)
 
 router.post(
   '/forget-password',
@@ -212,7 +214,6 @@ router.post(
   restorePassword
 )
 
-router.get('/me', passport.authenticate('jwt', { session: false }), userToken)
 
 router.get(
   '/testing',

@@ -40,9 +40,23 @@ class TagsService {
   }
 
   static async findTagByid(id) {
-    let tag = await models.Tags.findByPk(id)
+    let tag = await models.Tags.findByPk(id, { raw: true })
     if (!tag) throw new CustomError('Not found tag', 404, 'Not Found')
     return tag
+  }
+
+  static async editingTag(id, fieldsModified) {
+    let tag = await models.Tags.update(fieldsModified, { where: { id } })
+    return tag
+  }
+
+  static async deleteTag(id){
+    try {
+      const result = await models.Tags.destroy({where:{id}})
+      return result
+    } catch (error) {
+      throw new error;
+    }
   }
 }
 
