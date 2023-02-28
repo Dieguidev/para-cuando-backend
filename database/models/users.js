@@ -8,11 +8,34 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'country_id',
       })
       Users.hasMany(models.Profiles, { as: 'profiles', foreignKey: 'user_id' })
-      Users.hasMany(models.Publications, { as: 'publications', foreignKey: 'user_id' })
-      Users.hasMany(models.UsersTags, { as: 'users_tags', foreignKey: 'user_id' })
+      Users.hasMany(models.Publications, {
+        as: 'publications',
+        foreignKey: 'user_id',
+      })
+      Users.hasMany(models.UsersTags, {
+        as: 'users_tags',
+        foreignKey: 'user_id',
+      })
       Users.hasMany(models.Votes, { as: 'votes', foreignKey: 'user_id' })
     }
   }
+  /**
+   * @openapi
+   * components:
+   *   schemas:
+   *     users:
+   *       type: object
+   *       properties:
+   *         username:
+   *           type: string
+   *           example: Diego
+   *         email:
+   *           type: string
+   *           example: diegogaray@gmail.com
+   *         password:
+   *           type: string
+   *           example: 1234
+   */
 
   Users.init(
     {

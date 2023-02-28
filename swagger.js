@@ -9,7 +9,11 @@ const options = {
     './routes/cities.routes.js',
     './database/models/cities.js',
     './routes/countries.router.js',
-    './database/models/countries.js'
+    './database/models/countries.js',
+    './routes/users.routes.js',
+    './database/models/users.js',
+    './database/models/tags.js',
+    './routes/tags.routes.js',
   ],
   definition: {
     openapi: '3.0.0',
