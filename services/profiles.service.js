@@ -26,7 +26,7 @@ class ProfilesService {
     if (!profile) throw new CustomError('Not found profile', 404, 'Not Found')
     return profile
   }
-  async isAdmin(user_id) {
+  static async isAdmin(user_id) {
     let role = await models.Roles.findOne(
       { where: { name: 'admin' } },
       { raw: true }

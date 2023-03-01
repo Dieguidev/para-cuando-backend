@@ -8,10 +8,11 @@ class UsersService {
 
   constructor() {
   }
-  
+
   async findAndCount(query) {
     const options = {
       where: {},
+      attributes: { exclude: ['password', 'email_verified', 'token', 'code_phone', 'phone', 'country_id', 'image_url', 'created_at', 'updated_at'] }
     }
 
     const { limit, offset } = query

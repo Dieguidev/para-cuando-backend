@@ -1,6 +1,8 @@
 const express = require('express');
-const { getAllUsers, getUser, updateUser } = require('../controllers/users.controller');
+const { getAllUsers, getUser, updateUser, getUserVotes } = require('../controllers/users.controller');
 const router = express.Router();
+const passport = require('../libs/passport');
+const { isAdmin } = require('../middlewares/autorizations.middlewares');
 
 /**
  * @openapi
@@ -54,8 +56,9 @@ const router = express.Router();
  *         descriptions: se actualizo el usuario correctamente
  */
 
-router.get('/', getAllUsers)
-router.get('/:id', getUser)
+router.get('/', passport.authenticate('jwt', { session: false }), isAdmin, getAllUsers)
+router.get('/:id', passport.authenticate('jwt', { session: false }), getUser)
+router.get('/:id/votes', passport.authenticate('jwt', { session: false }), getUserVotes)
 router.put('/:id', updateUser)
 
 

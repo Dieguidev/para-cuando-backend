@@ -32,6 +32,10 @@ const getUser = async (req, res, next) => {
   }
 }
 
+const getUserVotes = async (req,res,next)=>{
+
+}
+
 const updateUser = async (req, res, next) => {
   try {
     let { id } = req.params
@@ -43,4 +47,4 @@ const updateUser = async (req, res, next) => {
   }
 }
 
-module.exports = { getAllUsers, getUser, updateUser }
+module.exports = { getAllUsers, getUser, updateUser,getUserVotes }

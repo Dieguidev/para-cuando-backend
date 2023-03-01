@@ -7,6 +7,7 @@ const isAdmin = async (request, response, next) => {
     //     Passport también aplicó un middleware!
 
     let isSuperUser = await profilesService.isAdmin(id)
+
     // verifica si existe relación de user - rol
     // si no existe, 403 --> Status de error común para permisos
     return next()
