@@ -100,6 +100,8 @@ const restorePassword = async (request, response, next) => {
 const userToken = async (request, response, next) => {
   try {    
     let id = request.user.id
+
+    // let id = request.params.id
     let user = await authService.userToken(id)
     return response.json({results:user})    
   } catch (error) {

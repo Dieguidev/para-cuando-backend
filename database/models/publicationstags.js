@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'PublicationsTags',
     tableName: 'publications_tags',
     underscored: true,
-    timestamps: false,
+    timestamps: true,
     scopes: {
       view_public: {
         attributes: ['tag_id', 'publication_id']

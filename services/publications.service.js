@@ -49,20 +49,20 @@ class PublicationsService {
     // body.city_id = 'DEFAULT_CITY';
 
     const newPublication = await models.Publications.create(body);
-    // console.log(body.tags);
-    // if (body.tags) {
-    //   let arrayTags = body.tags.split(',')
-    //   let findedTags = await models.Tags.findAll({
-    //     where: { id: arrayTags },
-    //     attributes: ['id'],
-    //     raw: true,
-    //   })
+    console.log(body.tags);
+    if (body.tags) {
+      let arrayTags = body.tags.split(',')
+      let findedTags = await models.Tags.findAll({
+        where: { id: arrayTags },
+        attributes: ['id'],
+        raw: true,
+      })
 
-    //   if (findedTags.length > 0) {
-    //     let tags_ids = findedTags.map(tag => tag['id'])
-    //     await newPublication.setTags(tags_ids)
-    //   }
-    // }
+      if (findedTags.length > 0) {
+        let tags_ids = findedTags.map(tag => tag['id'])
+        await newPublication.setTags(tags_ids)
+      }
+    }
 
     return newPublication;
 

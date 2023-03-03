@@ -32,8 +32,21 @@ const getUser = async (req, res, next) => {
   }
 }
 
-const getUserVotes = async (req,res,next)=>{
+const getUserVotes = async (req, res, next) => {
+  try {
+    let query = req.query;
+    let { page, size } = query;
 
+    const { limit, offset } = getPagination(page, size, '10')
+    query.limit = limit;
+    query.offset = offset;
+
+    let users = await usersService.getUserVotes(query)
+    const results = getPagingData(users, page, limit)
+    return res.json({ results: results })
+  } catch (error) {
+    next(error)
+  }
 }
 
 const updateUser = async (req, res, next) => {
@@ -47,4 +60,4 @@ const updateUser = async (req, res, next) => {
   }
 }
 
-module.exports = { getAllUsers, getUser, updateUser,getUserVotes }
+module.exports = { getAllUsers, getUser, updateUser, getUserVotes }
