@@ -131,6 +131,9 @@ module.exports = (sequelize, DataTypes) => {
             'image_url',
           ],
         },
+        view_other_user:{
+          attributes:['first_name', 'last_name', 'image_url']
+        }
       },
       hooks: {
         beforeCreate: (user, options) => {

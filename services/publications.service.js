@@ -49,7 +49,7 @@ class PublicationsService {
     // body.city_id = 'DEFAULT_CITY';
 
     const newPublication = await models.Publications.create(body);
-    console.log(body.tags);
+
     if (body.tags) {
       let arrayTags = body.tags.split(',')
       let findedTags = await models.Tags.findAll({
@@ -69,7 +69,38 @@ class PublicationsService {
   }
 
   static async getPublicationsById(id) {
-    let publication = await models.Publications.findOne({ where: { id } }, { raw: true })
+    let publication = await models.Publications.findOne({
+      where: { id },
+      attributes: {
+        include: [
+          [cast(literal('(SELECT COUNT(*) FROM "votes" WHERE "votes"."publication_id" = "Publications"."id")'), 'integer'), 'votes_count']
+        ]
+      },
+      include: [{
+        model: models.Users,
+        as: 'user',
+        attributes: ['first_name','last_name','image_url']
+      },
+      {
+        model: models.Cities,
+        as: 'city'
+      },
+      {
+        model: models.PublicationsTypes,
+        as: 'publication_type'
+      },
+      {
+        model: models.Tags,
+        as: 'tags'
+      },
+      {
+        model: models.Votes,
+        as: 'votes'
+      },
+      ]
+    }, { raw: true },
+
+    )
     if (!publication) throw new CustomError('Not found publication', 404, 'Not Found')
     return publication
   }

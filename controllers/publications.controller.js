@@ -23,6 +23,8 @@ const getAllPublications = async (req, res, next) => {
 const createPublication = async (req, res, next) => {
   try {
     let { body } = req;
+    let iduser = req.user.id
+    body.user_id = iduser
     // console.log(body);
     let errors = [];
     let newPublication = await PublicationsService.createPublication(body);

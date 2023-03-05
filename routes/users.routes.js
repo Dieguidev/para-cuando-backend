@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllUsers, getUser, updateUser, getUserVotes } = require('../controllers/users.controller');
+const { getAllUsers, getUser, updateUser, getUserVotes, getUserPublications } = require('../controllers/users.controller');
 const router = express.Router();
 const passport = require('../libs/passport');
 const { isAdmin } = require('../middlewares/autorizations.middlewares');
@@ -59,6 +59,7 @@ const { isAdmin } = require('../middlewares/autorizations.middlewares');
 router.get('/', passport.authenticate('jwt', { session: false }), isAdmin, getAllUsers)
 router.get('/:id', passport.authenticate('jwt', { session: false }), getUser)
 router.get('/:id/votes', passport.authenticate('jwt', { session: false }), getUserVotes)
+router.get('/:id/publications', passport.authenticate('jwt', { session: false }), getUserPublications)
 router.put('/:id', updateUser)
 
 

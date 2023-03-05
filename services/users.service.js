@@ -65,6 +65,12 @@ class UsersService {
     return user
   }
 
+  async getAuthUserOr404diferentUser(id) {
+    let user = await models.Users.scope('view_other_user').findByPk(id, { raw: true })
+    if (!user) throw new CustomError('Not found User', 404, 'Not Found')
+    return user
+  }
+
   async getUser(id) {
     let user = await models.Users.findByPk(id)
     if (!user) throw new CustomError('Not found User', 404, 'Not Found')
@@ -76,6 +82,63 @@ class UsersService {
     let user = await models.Users.findOne({ where: { email } }, { raw: true })
     if (!user) throw new CustomError('Not found User', 404, 'Not Found')
     return user
+  }
+
+  async getUserVotes(query, user_id) {
+    const options = {
+      where: {},
+      attributes: ['id'],
+      include: [
+        {
+          model: models.Votes,
+          as: 'votes',
+          required: true,
+          where: {
+            user_id: user_id
+          }
+        }
+      ]
+    }
+
+    const { limit, offset } = query
+    if (limit && offset) {
+      options.limit = limit
+      options.offset = offset
+    }
+
+    // const { id } = query
+    // if (id) {
+    //   options.where.id = id
+    // }
+
+    // const { name } = query
+    // if (name) {
+    //   options.where.name = { [Op.iLike]: `%${name}%` }
+    // }
+
+    options.distinct = true
+
+    const users = await models.Publications.findAndCountAll(options)
+    return users
+  }
+
+  async getUserPublications(query, user_id) {
+    const options = {
+      where: {user_id},
+      //attributes: ['id'],
+      
+    }
+
+    const { limit, offset } = query
+    if (limit && offset) {
+      options.limit = limit
+      options.offset = offset
+    }
+
+    options.distinct = true
+
+    const users = await models.Publications.findAndCountAll(options)
+    return users
   }
 
   async updateUser(id, obj) {

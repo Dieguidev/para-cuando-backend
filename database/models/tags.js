@@ -48,3 +48,25 @@ module.exports = (sequelize, DataTypes) => {
   });
   return Tags;
 };
+
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     tags:
+ *       type: object
+ *       properties:
+ *         results:
+ *           type: object
+ *           example:
+ *             "count": 8
+ *             "totalPages": 1
+ *             "currentPage": 1
+ *             "results":
+ *               "name": Lima
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ */

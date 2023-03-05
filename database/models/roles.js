@@ -26,3 +26,25 @@ module.exports = (sequelize, DataTypes) => {
   });
   return Roles;
 };
+
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     roles:
+ *       type: object
+ *       properties:
+ *         results:
+ *           type: object
+ *           example:
+ *             "count": 8
+ *             "totalPages": 1
+ *             "currentPage": 1
+ *             "results":
+ *               "name": Admin
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ */

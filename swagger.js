@@ -14,13 +14,17 @@ const options = {
     './database/models/users.js',
     './database/models/tags.js',
     './routes/tags.routes.js',
+    './routes/roles.routes.js',
+    './database/models/roles.js',
+    './routes/tags.routes.js',
+    './database/models/tags.js'
   ],
   definition: {
     openapi: '3.0.0',
     info: {
       title: 'paracuando-api-team-1',
       version: '0.0.9',
-      description: 'API para ecommerce',
+      description: 'API para cuando-app',
     },
   },
 }

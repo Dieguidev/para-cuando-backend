@@ -24,9 +24,18 @@ const getAllUsers = async (req, res, next) => {
 
 const getUser = async (req, res, next) => {
   try {
+
+    let iduser = req.user.id
+    console.log(iduser);
     let { id } = req.params
-    let users = await usersService.getAuthUserOr404(id)
-    return res.json({ results: users })
+    if (iduser === id) {
+      let users = await usersService.getAuthUserOr404(id)
+      return res.json({ results: users })
+    } else {
+      let users = await usersService.getAuthUserOr404diferentUser(id)
+      return res.json({ results: users })
+    }
+
   } catch (error) {
     next(error)
   }
@@ -34,6 +43,7 @@ const getUser = async (req, res, next) => {
 
 const getUserVotes = async (req, res, next) => {
   try {
+    const { id } = req.params
     let query = req.query;
     let { page, size } = query;
 
@@ -41,7 +51,25 @@ const getUserVotes = async (req, res, next) => {
     query.limit = limit;
     query.offset = offset;
 
-    let users = await usersService.getUserVotes(query)
+    let users = await usersService.getUserVotes(query, id)
+    const results = getPagingData(users, page, limit)
+    return res.json({ results: results })
+  } catch (error) {
+    next(error)
+  }
+}
+
+const getUserPublications = async (req, res, next) => {
+  try {
+    const { id } = req.params
+    let query = req.query;
+    let { page, size } = query;
+
+    const { limit, offset } = getPagination(page, size, '10')
+    query.limit = limit;
+    query.offset = offset;
+
+    let users = await usersService.getUserPublications(query, id)
     const results = getPagingData(users, page, limit)
     return res.json({ results: results })
   } catch (error) {
@@ -60,4 +88,4 @@ const updateUser = async (req, res, next) => {
   }
 }
 
-module.exports = { getAllUsers, getUser, updateUser, getUserVotes }
+module.exports = { getAllUsers, getUser, updateUser, getUserVotes, getUserPublications }
